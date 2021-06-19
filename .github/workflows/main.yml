@@ -41,6 +41,9 @@ jobs:
 
       # Run widget tests for our flutter project. up
       - run: flutter test --coverage
+        
+      # install lcov
+      - run: sudo apt-get install lcov -y
 
       # generate coverage info
       - run: genhtml coverage/lcov.info -o coverage/html
