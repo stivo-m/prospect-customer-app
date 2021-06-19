@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
   push:
-    branches: [ 'develop' 'master' ]
+    branches: [ 'develop', 'master' ]
   pull_request:
     branches: [ 'develop', 'master' ]
 
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-   steps:
+    steps:
       - uses: actions/checkout@v2
 
       # Setup the flutter environment.
