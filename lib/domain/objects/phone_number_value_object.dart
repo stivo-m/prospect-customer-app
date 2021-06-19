@@ -1,22 +1,21 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'dart:convert';
 
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
 
 import 'package:prospect_app/domain/core/failures.dart';
 import 'package:prospect_app/domain/core/validators.dart';
 
-class EmailAddress {
+class PhoneNumber {
   final Either<ValueFailure<String>, String> value;
 
-  factory EmailAddress.withValue({required String input}) {
-    return EmailAddress._(
-      validateEmailAddress(input),
+  factory PhoneNumber.withValue({required String input}) {
+    return PhoneNumber._(
+      validatePhoneNumber(input),
     );
   }
 
-  const EmailAddress._(this.value);
+  const PhoneNumber._(this.value);
 
   Map<String, dynamic> toMap() {
     return {
@@ -24,14 +23,12 @@ class EmailAddress {
     };
   }
 
-  factory EmailAddress.fromMap(Map<String, dynamic> map) {
-    return EmailAddress.withValue(
-      input: map['value'],
-    );
+  factory PhoneNumber.fromMap(Map<String, dynamic> map) {
+    return PhoneNumber.withValue(input: map['value']);
   }
 
   String toJson() => json.encode(toMap());
 
-  factory EmailAddress.fromJson(String source) =>
-      EmailAddress.fromMap(json.decode(source));
+  factory PhoneNumber.fromJson(String source) =>
+      PhoneNumber.fromMap(json.decode(source));
 }
