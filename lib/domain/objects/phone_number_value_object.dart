@@ -1,4 +1,3 @@
-// ignore: import_of_legacy_library_into_null_safe
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
@@ -19,7 +18,7 @@ class PhoneNumber {
 
   Map<String, dynamic> toMap() {
     return {
-      'value': value.getOrElse(() => null).toString(),
+      'value': value.getOrElse(() => '').toString(),
     };
   }
 

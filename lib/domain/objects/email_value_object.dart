@@ -20,7 +20,7 @@ class EmailAddress {
 
   Map<String, dynamic> toMap() {
     return {
-      'value': value.getOrElse(() => null).toString(),
+      'value': value.getOrElse(() => '').toString(),
     };
   }
 

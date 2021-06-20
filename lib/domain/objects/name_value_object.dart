@@ -1,8 +1,5 @@
-// ignore: import_of_legacy_library_into_null_safe
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
-
 import 'package:prospect_app/domain/core/failures.dart';
 import 'package:prospect_app/domain/core/validators.dart';
 
@@ -18,7 +15,7 @@ class FullName {
   const FullName._(this.value);
 
   Map<String, dynamic> toMap() {
-    return {'value': value.getOrElse(() => null).toString()};
+    return {'value': value.getOrElse(() => '').toString()};
   }
 
   factory FullName.fromMap(Map<String, dynamic> map) {

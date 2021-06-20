@@ -17,12 +17,12 @@ class AuthService {
     final Either<String, String> tokenOrFailure = await authFacade.loginUser(
         emailAddress: emailAddress, password: password);
 
-    if (tokenOrFailure.isLeft()) {
+    if (tokenOrFailure.isRight()) {
       // save the token to shared preferences
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       tokenOrFailure.fold(
-        (l) => _prefs.setString(BEARER_TOKEN_KEY, l.toString()),
-        (r) => _prefs.remove(BEARER_TOKEN_KEY),
+        (String l) => _prefs.remove(BEARER_TOKEN_KEY),
+        (String r) => _prefs.setString(BEARER_TOKEN_KEY, r.toString()),
       );
 
       return true;
