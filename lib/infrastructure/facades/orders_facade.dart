@@ -13,10 +13,12 @@ abstract class IOrdersFacade {
     required int orderid,
     required Object orderDetails,
   });
+
+  Future getOrders();
   Future payOrder({required int id});
   Future updateOrder({
     required int id,
-    OrderStatus status,
+    OrderStatus? status,
     Object? updates,
   });
   Future deleteOrder({required int id});

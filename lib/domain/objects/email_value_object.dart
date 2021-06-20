@@ -20,13 +20,13 @@ class EmailAddress {
 
   Map<String, dynamic> toMap() {
     return {
-      'value': value.getOrElse(() => '').toString(),
+      'email': value.getOrElse(() => '').toString(),
     };
   }
 
   factory EmailAddress.fromMap(Map<String, dynamic> map) {
     return EmailAddress.withValue(
-      input: map['value'],
+      input: map['email'],
     );
   }
 
