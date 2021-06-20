@@ -27,11 +27,12 @@ class AuthRepository extends IAuthFacade {
   }) {
     if (connectivityResult == ConnectivityResult.none) {
       // return local data source
-    } else if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi) {
+      return Future.value(Left('No internet connection'));
+    } else {
       // return remote data source
+
+      return Future.value(Right('connection available. Login user'));
     }
-    throw UnimplementedError();
   }
 
   @override

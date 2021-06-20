@@ -2,12 +2,9 @@ import 'dart:async';
 
 import 'package:async_redux/async_redux.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:prospect_app/application/core/services/auth_service.dart';
 import 'package:prospect_app/application/core/services/cache_service.dart';
-import 'package:prospect_app/application/core/utils/loading_utils.dart';
-import 'package:prospect_app/application/redux/actions/fetch_user_feed.dart';
+
 import 'package:prospect_app/application/redux/states/app_state.dart';
 import 'package:prospect_app/application/redux/states/modules/user_state.dart';
 import 'package:prospect_app/domain/objects/email_value_object.dart';
@@ -16,14 +13,14 @@ import 'package:prospect_app/infrastructure/repository/auth_repository.dart';
 class LoginAction extends ReduxAction<AppState> {
   final EmailAddress emailAddress;
   final String password;
-  final BuildContext buildContext;
   final CacheService cacheService;
+  final StreamController? loginStreamController;
 
   LoginAction({
     required this.emailAddress,
     required this.password,
-    required this.buildContext,
     required this.cacheService,
+    this.loginStreamController,
   });
   @override
   Future<AppState?> reduce() async {
@@ -43,14 +40,15 @@ class LoginAction extends ReduxAction<AppState> {
       password: password,
     );
 
-    if (loggedIn) {
-      store.dispatch(
-        FetchuserFeed(
-          buildContext: buildContext,
-          cacheService: cacheService,
-        ),
-      );
+    await Future.delayed(Duration(milliseconds: 400));
 
+    if (loggedIn) {
+      // store.dispatch(
+      //   FetchuserFeed(
+      //     cacheService: cacheService,
+      //   ),
+      // );
+      // loginStreamController!.add({'loading': false});
       return state.copyWith(
         userState: state.userState!.copyWith(
           token: cacheService.getToken(),
@@ -59,35 +57,25 @@ class LoginAction extends ReduxAction<AppState> {
       );
     } else {
       // display any errors
-      showError(buildContext);
       return state;
     }
+
+    // return Future.delayed(Duration(milliseconds: 600), () => state);
   }
 
   @override
   FutureOr<void> before() {
-    LoadingUtils.showLoadingState(context: buildContext, isLoading: true);
+    loginStreamController!.add({'loading': true});
     return super.before();
   }
 
   @override
   void after() {
-    LoadingUtils.showLoadingState(context: buildContext, isLoading: false);
-    super.after();
-  }
+    loginStreamController!.add({'loading': false});
 
-  void showError(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Container(
-          width: double.infinity,
-          height: 50,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.redAccent,
-          ),
-        ),
-      ),
-    );
+    // loginStreamController!.addError({'No internet connection'});
+    loginStreamController!.add({'authenticated': true});
+
+    super.after();
   }
 }
