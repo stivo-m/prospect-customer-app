@@ -1,3 +1,6 @@
+
+[![CI](https://github.com/stivo-m/prospect-customer-app/actions/workflows/main.yml/badge.svg)](https://github.com/stivo-m/prospect-customer-app/actions/workflows/main.yml)
+
 # prospect_app
 
 A new Flutter project.
@@ -16,4 +19,3 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 
-[![CI](https://github.com/stivo-m/prospect-customer-app/actions/workflows/main.yml/badge.svg)](https://github.com/stivo-m/prospect-customer-app/actions/workflows/main.yml)
