@@ -8,6 +8,8 @@ import 'package:prospect_app/domain/core/app_strings.dart';
 import 'package:prospect_app/domain/objects/email_value_object.dart';
 import 'package:prospect_app/infrastructure/repository/cache_repository.dart';
 import 'package:prospect_app/presentation/app/customer/pages/auth/widgets/primary_button.dart';
+import 'package:prospect_app/presentation/app/customer/pages/auth/widgets/primary_input_field.dart';
+import 'package:prospect_app/presentation/core/themes/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -40,17 +42,20 @@ class LoginScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Spacer(),
                       Text(
                         welcomeBackText,
                         style: Theme.of(context).textTheme.headline3,
                       ),
-                      SizedBox(height: 20),
-                      TextFormField(
+                      SizedBox(
+                        height: 20,
+                      ),
+                      PrimaryInputField(
                         controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
+                        labelText: emailAddressText,
+                        prefixIcon: Icon(Icons.email_outlined),
                         validator: (String? val) {
                           if (val!.isEmpty) {
                             return 'Email cannot be empty';
@@ -58,24 +63,15 @@ class LoginScreen extends StatelessWidget {
                             return null;
                           }
                         },
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.email_outlined),
-                          labelText: emailAddressText,
-                          border: OutlineInputBorder(),
-                        ),
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      TextFormField(
-                        controller: _passwordController,
+                      PrimaryInputField(
                         obscureText: true,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                          labelText: passwordText,
-                          border: OutlineInputBorder(),
-                        ),
+                        controller: _passwordController,
+                        labelText: passwordText,
+                        prefixIcon: Icon(Icons.lock),
                         validator: (String? val) {
                           if (val!.isEmpty) {
                             return 'Password cannot be empty';
@@ -83,6 +79,18 @@ class LoginScreen extends StatelessWidget {
                             return null;
                           }
                         },
+                      ),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          'Forgot password?',
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: AppColors.accentColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
                       ),
                       SizedBox(
                         height: 20,
@@ -92,7 +100,7 @@ class LoginScreen extends StatelessWidget {
                             snapshot.hasData && snapshot.data['loading'] == true
                                 ? LinearProgressIndicator(
                                     valueColor: AlwaysStoppedAnimation(
-                                      Colors.deepOrange,
+                                      AppColors.lightGreyColor,
                                     ),
                                   )
                                 : Text(
@@ -137,23 +145,6 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      PrimaryButton(
-                        backgroundColor: Colors.deepOrangeAccent,
-                        buttonText: Text(
-                          'Cancel Stream',
-                          style:
-                              Theme.of(context).textTheme.subtitle1!.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                        onPressed: () => _loginStreamController.add(
-                          {'loading': false},
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
                       if (snapshot.hasError)
                         Container(
                           height: 50,
@@ -172,6 +163,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                      Spacer(),
                     ],
                   ),
                 ),
