@@ -1,21 +1,21 @@
-import 'package:prospect_app/infrastructure/facades/cache_facade.dart';
+import 'package:prospect_app/infrastructure/repository/cache_repository.dart';
 
 class CacheService {
-  final ICacheFacade cacheRepository;
+  CacheService._internal() {}
+  static final CacheService _singleton = CacheService._internal();
+  static CacheService get instance => _singleton;
 
-  CacheService({
-    required this.cacheRepository,
-  });
+  CacheRepository _cacheRepository = CacheRepository();
 
-  String? getToken() {
-    return cacheRepository.getBearerToken();
+  Future<String?> getToken() async {
+    return await _cacheRepository.getBearerToken();
   }
 
   Future<bool> saveToken({required String token}) {
-    return cacheRepository.saveBearerToken(token: token);
+    return _cacheRepository.saveBearerToken(token: token);
   }
 
   Future<bool> removeToken() {
-    return cacheRepository.removeBearerToken();
+    return _cacheRepository.removeBearerToken();
   }
 }

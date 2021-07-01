@@ -9,3 +9,5 @@ const String getStartedText = 'Get Started';
 const String emailAddressText = 'Email Address';
 const String passwordText = 'Password';
 const String forgotPasswordText = 'Forgot Password';
+
+const BASE_URL = 'https://prospect-backend.herokuapp.com/api/';

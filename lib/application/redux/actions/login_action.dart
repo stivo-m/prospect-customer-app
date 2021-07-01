@@ -4,22 +4,21 @@ import 'package:async_redux/async_redux.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:prospect_app/application/core/services/auth_service.dart';
 import 'package:prospect_app/application/core/services/cache_service.dart';
-
+import 'package:prospect_app/application/core/services/navigation_service.dart';
+import 'package:prospect_app/application/redux/actions/user_authenticated_success_state_action.dart';
 import 'package:prospect_app/application/redux/states/app_state.dart';
-import 'package:prospect_app/application/redux/states/modules/user_state.dart';
 import 'package:prospect_app/domain/objects/email_value_object.dart';
 import 'package:prospect_app/infrastructure/repository/auth_repository.dart';
+import 'package:prospect_app/presentation/router/routes.dart';
 
 class LoginAction extends ReduxAction<AppState> {
   final EmailAddress emailAddress;
   final String password;
-  final CacheService cacheService;
   final StreamController? loginStreamController;
 
   LoginAction({
     required this.emailAddress,
     required this.password,
-    required this.cacheService,
     this.loginStreamController,
   });
   @override
@@ -27,11 +26,14 @@ class LoginAction extends ReduxAction<AppState> {
     final Connectivity _connectivity = Connectivity();
     final ConnectivityResult _connectivityResult =
         await _connectivity.checkConnectivity();
+    final CacheService cacheService = CacheService.instance;
+    NavigationService navigationService = NavigationService.instance;
+
     AuthService _authService = AuthService(
+      authStreamController: loginStreamController,
       authFacade: AuthRepository(
         connectivityResult: _connectivityResult,
       ),
-      cacheService: cacheService,
     );
 
     // initiate login
@@ -40,27 +42,23 @@ class LoginAction extends ReduxAction<AppState> {
       password: password,
     );
 
-    await Future.delayed(Duration(milliseconds: 400));
-
     if (loggedIn) {
-      // store.dispatch(
-      //   FetchuserFeed(
-      //     cacheService: cacheService,
-      //   ),
-      // );
-      // loginStreamController!.add({'loading': false});
-      return state.copyWith(
-        userState: state.userState!.copyWith(
-          token: cacheService.getToken(),
-          userOnlineStatus: UserOnlineStatus.ONLINE,
-        ),
+      String? _token = await cacheService.getToken();
+      loginStreamController!.add({'authenticated': true});
+      store.dispatch(
+        UserAuthenticatedSuccessStateAction(token: _token ?? ''),
+      );
+
+      // close stream controller
+      loginStreamController!.close();
+      // navigate to home page
+      Future.sync(
+        () => navigationService.pushReplacementNamed(route: DASHBOARD_ROUTE),
       );
     } else {
       // display any errors
       return state;
     }
-
-    // return Future.delayed(Duration(milliseconds: 600), () => state);
   }
 
   @override
@@ -71,10 +69,7 @@ class LoginAction extends ReduxAction<AppState> {
 
   @override
   void after() {
-    loginStreamController!.add({'loading': false});
-
-    // loginStreamController!.addError({'No internet connection'});
-    loginStreamController!.add({'authenticated': true});
+    // loginStreamController!.add({'loading': false});
 
     super.after();
   }

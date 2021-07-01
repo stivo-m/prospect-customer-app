@@ -1,34 +1,36 @@
+import 'dart:async';
+
 import 'package:async_redux/async_redux.dart';
-import 'package:prospect_app/application/core/services/cache_service.dart';
 import 'package:prospect_app/application/redux/actions/login_action.dart';
 import 'package:prospect_app/application/redux/states/app_state.dart';
 import 'package:prospect_app/domain/objects/email_value_object.dart';
 
-class LoginViewModel {
-  final Function({
+class LoginViewModel extends BaseModel<AppState> {
+  Function({
     required EmailAddress emailAddress,
     required String password,
-    required CacheService cacheService,
-  }) onLogin;
+    required StreamController loginStreamController,
+  })? onLogin;
 
-  LoginViewModel({
+  LoginViewModel.build({
     required this.onLogin,
   });
 
-  static LoginViewModel fromStore(Store<AppState> store) {
-    return LoginViewModel(
-      onLogin: ({
-        required EmailAddress emailAddress,
-        required String password,
-        required CacheService cacheService,
-      }) =>
-          store.dispatch(
-        LoginAction(
-          emailAddress: emailAddress,
-          password: password,
-          cacheService: cacheService,
+  LoginViewModel();
+
+  @override
+  LoginViewModel fromStore() => LoginViewModel.build(
+        onLogin: ({
+          required EmailAddress emailAddress,
+          required String password,
+          required StreamController loginStreamController,
+        }) =>
+            dispatch!(
+          LoginAction(
+            loginStreamController: loginStreamController,
+            emailAddress: emailAddress,
+            password: password,
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

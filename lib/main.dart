@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:prospect_app/application/core/services/navigation_service.dart';
 import 'package:prospect_app/application/redux/states/app_state.dart';
 import 'package:prospect_app/presentation/core/themes/themes.dart';
 import 'package:prospect_app/presentation/router/routes.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: AppTheme.lightTheme(),
         initialRoute: LOGIN_ROUTE,
+        navigatorKey: NavigationService.navigatorKey,
         onGenerateRoute: RouterGenerator.onRouteGenerate,
       ),
     );

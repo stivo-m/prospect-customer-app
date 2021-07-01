@@ -1,4 +1,5 @@
-// ignore: import_of_legacy_library_into_null_safe
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:prospect_app/application/core/services/cache_service.dart';
 import 'package:prospect_app/domain/objects/email_value_object.dart';
@@ -7,11 +8,12 @@ import 'package:prospect_app/infrastructure/facades/auth_facade.dart';
 class AuthService {
   AuthService({
     required this.authFacade,
-    required this.cacheService,
+    this.authStreamController,
   });
 
   final IAuthFacade authFacade;
-  final CacheService cacheService;
+  final StreamController? authStreamController;
+  final CacheService cacheService = CacheService.instance;
 
   Future<bool> loginWithEmailAndPassword({
     required EmailAddress emailAddress,
@@ -29,6 +31,14 @@ class AuthService {
 
       return true;
     } else {
+      // print error
+      if (authStreamController != null) {
+        authStreamController!.add({'loading': false});
+        tokenOrFailure.fold(
+          (String l) => authStreamController!.addError(l),
+          (String r) => cacheService.saveToken(token: r.toString()),
+        );
+      }
       // token is not available.
       cacheService.removeToken();
       // return error message (create function to show error message)

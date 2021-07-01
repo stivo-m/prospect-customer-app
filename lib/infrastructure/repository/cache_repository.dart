@@ -6,30 +6,30 @@ import 'package:prospect_app/infrastructure/facades/cache_facade.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheRepository extends ICacheFacade {
-  final SharedPreferences sharedPreferences;
-  CacheRepository({
-    required this.sharedPreferences,
-  }) : super(
-          sharedPreferences: sharedPreferences,
-        );
-
   @override
   String? getBearerToken() {
-    return sharedPreferences.getString(BEARER_TOKEN_KEY);
+    SharedPreferences.getInstance().then(
+      (sharedPreferences) => () {
+        return sharedPreferences.getString(BEARER_TOKEN_KEY);
+      },
+    );
   }
 
   @override
-  Future<bool> saveBearerToken({required String token}) {
+  Future<bool> saveBearerToken({required String token}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.setString(BEARER_TOKEN_KEY, token);
   }
 
   @override
   Future<bool> removeBearerToken() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.remove(BEARER_TOKEN_KEY);
   }
 
   @override
-  UserProfile? getUserProfile() {
+  Future<UserProfile?> getUserProfile() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? userProfile = sharedPreferences.getString(USER_PROFILE_KEY);
     if (userProfile != null) {
       return UserProfile.fromJson(
@@ -39,7 +39,8 @@ class CacheRepository extends ICacheFacade {
   }
 
   @override
-  Future<bool> saveUserProfile({required UserProfile userProfile}) {
+  Future<bool> saveUserProfile({required UserProfile userProfile}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.setString(
       USER_PROFILE_KEY,
       jsonEncode(userProfile.toJson()),
@@ -47,7 +48,8 @@ class CacheRepository extends ICacheFacade {
   }
 
   @override
-  Future<bool> deleteUserProfile() {
+  Future<bool> deleteUserProfile() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.remove(USER_PROFILE_KEY);
   }
 }
