@@ -57,12 +57,12 @@ jobs:
         with:
           name: coverage
           path: coverage/html/index.html
-      - name: Build Android App
-        run: flutter build apk --split-per-abi
-      - name: Release Apps
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ env.APP_VERSION }}
-          name: ${{ env.APP_VERSION }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "build/app/outputs/apk/release/*.apk"
+      # - name: Build Android App
+      #   run: flutter build apk --split-per-abi
+      # - name: Release Apps
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #     tag: ${{ env.APP_VERSION }}
+      #     name: ${{ env.APP_VERSION }}
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     artifacts: "build/app/outputs/apk/release/*.apk"
