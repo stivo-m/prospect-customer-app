@@ -5,7 +5,6 @@ part 'bottom_nav_state.freezed.dart';
 part 'bottom_nav_state.g.dart';
 
 @freezed
-@JsonSerializable()
 class BottomNavState with _$BottomNavState {
   factory BottomNavState({
     int? currentIndex,

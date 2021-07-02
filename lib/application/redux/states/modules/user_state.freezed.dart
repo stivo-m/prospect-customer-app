@@ -21,7 +21,7 @@ class _$UserStateTearOff {
   const _$UserStateTearOff();
 
   _UserState call(
-      {UserProfile? profile,
+      {required UserProfile? profile,
       required UserOnlineStatus userOnlineStatus,
       required String? token}) {
     return _UserState(
@@ -152,7 +152,9 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserState implements _UserState {
   _$_UserState(
-      {this.profile, required this.userOnlineStatus, required this.token});
+      {required this.profile,
+      required this.userOnlineStatus,
+      required this.token});
 
   factory _$_UserState.fromJson(Map<String, dynamic> json) =>
       _$_$_UserStateFromJson(json);
@@ -203,7 +205,7 @@ class _$_UserState implements _UserState {
 
 abstract class _UserState implements UserState {
   factory _UserState(
-      {UserProfile? profile,
+      {required UserProfile? profile,
       required UserOnlineStatus userOnlineStatus,
       required String? token}) = _$_UserState;
 

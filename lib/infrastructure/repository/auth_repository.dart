@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:prospect_app/domain/core/app_strings.dart';
 import 'package:prospect_app/domain/entities/user_profile_entity.dart';
 import 'package:prospect_app/domain/objects/phone_number_value_object.dart';
@@ -49,7 +48,7 @@ class AuthRepository extends IAuthFacade {
   }) async {
     if (connectivityResult == ConnectivityResult.none) {
       // return local data source
-      String? _token = await _cacheRepository.getBearerToken();
+      String? _token = _cacheRepository.getBearerToken();
       if (_token != null || _token != '') {
         return right(_token!);
       } else {
@@ -67,12 +66,14 @@ class AuthRepository extends IAuthFacade {
           },
         );
 
-        String _token = await _populateUserFields(response);
-        print(_token);
-        // return a value of right
-        return right(_token);
-      } on DioError catch (e) {
-        return left(e.response!.data['text']);
+        if (response.statusCode == 200) {
+          String _token = await _populateUserFields(response);
+          // return a value of right
+          return right(_token);
+        } else {
+          Map<String, dynamic> err = json.decode(response.body);
+          return left(err['text']);
+        }
       } catch (e) {
         return left(e.toString());
       }
@@ -129,6 +130,7 @@ class AuthRepository extends IAuthFacade {
     String _token = body['token'];
     // save token to cache
     await _cacheRepository.saveBearerToken(token: _token);
+
     // save user profile on cache
     UserProfile _userProfile = UserProfile(
       emailAddress: EmailAddress.withValue(input: body['user']['email']),

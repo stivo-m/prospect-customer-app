@@ -6,8 +6,8 @@ part of 'user_state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserState _$UserStateFromJson(Map<String, dynamic> json) {
-  return UserState(
+_$_UserState _$_$_UserStateFromJson(Map<String, dynamic> json) {
+  return _$_UserState(
     profile: json['profile'] == null
         ? null
         : UserProfile.fromJson(json['profile'] as Map<String, dynamic>),
@@ -17,7 +17,8 @@ UserState _$UserStateFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$UserStateToJson(UserState instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_UserStateToJson(_$_UserState instance) =>
+    <String, dynamic>{
       'profile': instance.profile,
       'userOnlineStatus': _$UserOnlineStatusEnumMap[instance.userOnlineStatus],
       'token': instance.token,
@@ -54,21 +55,3 @@ const _$UserOnlineStatusEnumMap = {
   UserOnlineStatus.AWAY: 'AWAY',
   UserOnlineStatus.OFFLINE: 'OFFLINE',
 };
-
-_$_UserState _$_$_UserStateFromJson(Map<String, dynamic> json) {
-  return _$_UserState(
-    profile: json['profile'] == null
-        ? null
-        : UserProfile.fromJson(json['profile'] as Map<String, dynamic>),
-    userOnlineStatus:
-        _$enumDecode(_$UserOnlineStatusEnumMap, json['userOnlineStatus']),
-    token: json['token'] as String?,
-  );
-}
-
-Map<String, dynamic> _$_$_UserStateToJson(_$_UserState instance) =>
-    <String, dynamic>{
-      'profile': instance.profile,
-      'userOnlineStatus': _$UserOnlineStatusEnumMap[instance.userOnlineStatus],
-      'token': instance.token,
-    };

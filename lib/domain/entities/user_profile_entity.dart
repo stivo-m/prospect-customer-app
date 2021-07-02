@@ -7,7 +7,6 @@ part 'user_profile_entity.freezed.dart';
 part 'user_profile_entity.g.dart';
 
 @freezed
-@JsonSerializable()
 class UserProfile with _$UserProfile {
   const factory UserProfile({
     @JsonKey(name: 'name') required FullName fullName,

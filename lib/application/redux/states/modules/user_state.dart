@@ -8,10 +8,9 @@ part 'user_state.freezed.dart';
 part 'user_state.g.dart';
 
 @freezed
-@JsonSerializable()
 class UserState with _$UserState {
   factory UserState({
-    UserProfile? profile,
+    required UserProfile? profile,
     required UserOnlineStatus userOnlineStatus,
     required String? token,
   }) = _UserState;

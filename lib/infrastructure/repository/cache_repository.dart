@@ -18,13 +18,13 @@ class CacheRepository extends ICacheFacade {
   @override
   Future<bool> saveBearerToken({required String token}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.setString(BEARER_TOKEN_KEY, token);
+    return await sharedPreferences.setString(BEARER_TOKEN_KEY, token);
   }
 
   @override
   Future<bool> removeBearerToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.remove(BEARER_TOKEN_KEY);
+    return await sharedPreferences.remove(BEARER_TOKEN_KEY);
   }
 
   @override
@@ -41,7 +41,7 @@ class CacheRepository extends ICacheFacade {
   @override
   Future<bool> saveUserProfile({required UserProfile userProfile}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.setString(
+    return await sharedPreferences.setString(
       USER_PROFILE_KEY,
       jsonEncode(userProfile.toJson()),
     );
@@ -50,6 +50,6 @@ class CacheRepository extends ICacheFacade {
   @override
   Future<bool> deleteUserProfile() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.remove(USER_PROFILE_KEY);
+    return await sharedPreferences.remove(USER_PROFILE_KEY);
   }
 }

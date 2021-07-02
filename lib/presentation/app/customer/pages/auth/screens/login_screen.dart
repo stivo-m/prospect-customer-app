@@ -97,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                           ? Center(child: CircularProgressIndicator())
                           : PrimaryButton(
                               buttonText: snapshot.hasData &&
-                                      snapshot.data['authenticated']
+                                      snapshot.data['authenticated'] == true
                                   ? Icon(
                                       Icons.check,
                                       color: Colors.white,
@@ -114,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                                           ),
                                     ),
                               onPressed: snapshot.hasData &&
-                                      snapshot.data['authenticated']
+                                      snapshot.data['authenticated'] == true
                                   ? () {}
                                   : () {
                                       if (_loginFormKey.currentState!

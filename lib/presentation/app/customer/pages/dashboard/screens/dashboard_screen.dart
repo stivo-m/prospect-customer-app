@@ -7,23 +7,26 @@ class CustomerDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
               child: GridView.count(
-                crossAxisCount: dashboardOrderCardTitles.length,
-                crossAxisSpacing: 2,
+                crossAxisCount: 2,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 8,
                 shrinkWrap: true,
                 children: dashboardOrderCardTitles
                     .map((String title) => OrderDashboardCard(title: title))
                     .toList(),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

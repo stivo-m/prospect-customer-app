@@ -6,7 +6,6 @@ part 'app_state.freezed.dart';
 part 'app_state.g.dart';
 
 @freezed
-@JsonSerializable()
 class AppState with _$AppState {
   factory AppState({
     UserState? userState,

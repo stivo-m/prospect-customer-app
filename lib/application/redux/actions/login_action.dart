@@ -7,6 +7,7 @@ import 'package:prospect_app/application/core/services/cache_service.dart';
 import 'package:prospect_app/application/core/services/navigation_service.dart';
 import 'package:prospect_app/application/redux/actions/user_authenticated_success_state_action.dart';
 import 'package:prospect_app/application/redux/states/app_state.dart';
+import 'package:prospect_app/domain/entities/user_profile_entity.dart';
 import 'package:prospect_app/domain/objects/email_value_object.dart';
 import 'package:prospect_app/infrastructure/repository/auth_repository.dart';
 import 'package:prospect_app/presentation/router/routes.dart';
@@ -43,10 +44,14 @@ class LoginAction extends ReduxAction<AppState> {
     );
 
     if (loggedIn) {
-      String? _token = await cacheService.getToken();
+      String? _token = cacheService.getToken();
+      UserProfile? _profile = await cacheService.getUserProfile();
       loginStreamController!.add({'authenticated': true});
       store.dispatch(
-        UserAuthenticatedSuccessStateAction(token: _token ?? ''),
+        UserAuthenticatedSuccessStateAction(
+          token: _token ?? '',
+          userProfile: _profile,
+        ),
       );
 
       // close stream controller

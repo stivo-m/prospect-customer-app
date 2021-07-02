@@ -17,5 +17,4 @@ List<String> dashboardOrderCardTitles = <String>[
   'Revision Orders',
   'Completed Orders',
   'Disputed Orders',
-  'Finished Orders',
 ];
