@@ -30,6 +30,15 @@ class AuthRepository extends IAuthFacade {
     } else if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi) {
       // return remote data source
+      try {
+        await http.post(
+          Uri.parse(BASE_URL + 'logout'),
+        );
+        return true;
+        // todo check response
+      } catch (e) {
+        return false;
+      }
     }
   }
 

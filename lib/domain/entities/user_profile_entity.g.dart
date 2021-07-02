@@ -6,6 +6,15 @@ part of 'user_profile_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
+  return UserProfile(
+    fullName: FullName.fromJson(json['name'] as String),
+    emailAddress: EmailAddress.fromJson(json['email'] as String),
+    phoneNumber: PhoneNumber.fromJson(json['phone_number'] as String),
+    role: json['role'] as String,
+  );
+}
+
 Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
     <String, dynamic>{
       'name': instance.fullName,

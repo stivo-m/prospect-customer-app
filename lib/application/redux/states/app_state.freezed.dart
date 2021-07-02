@@ -20,9 +20,10 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) {
 class _$AppStateTearOff {
   const _$AppStateTearOff();
 
-  _AppState call({UserState? userState}) {
+  _AppState call({UserState? userState, BottomNavState? bottomNavState}) {
     return _AppState(
       userState: userState,
+      bottomNavState: bottomNavState,
     );
   }
 
@@ -37,6 +38,7 @@ const $AppState = _$AppStateTearOff();
 /// @nodoc
 mixin _$AppState {
   UserState? get userState => throw _privateConstructorUsedError;
+  BottomNavState? get bottomNavState => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,9 +50,10 @@ mixin _$AppState {
 abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res>;
-  $Res call({UserState? userState});
+  $Res call({UserState? userState, BottomNavState? bottomNavState});
 
   $UserStateCopyWith<$Res>? get userState;
+  $BottomNavStateCopyWith<$Res>? get bottomNavState;
 }
 
 /// @nodoc
@@ -64,12 +67,17 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
   @override
   $Res call({
     Object? userState = freezed,
+    Object? bottomNavState = freezed,
   }) {
     return _then(_value.copyWith(
       userState: userState == freezed
           ? _value.userState
           : userState // ignore: cast_nullable_to_non_nullable
               as UserState?,
+      bottomNavState: bottomNavState == freezed
+          ? _value.bottomNavState
+          : bottomNavState // ignore: cast_nullable_to_non_nullable
+              as BottomNavState?,
     ));
   }
 
@@ -83,6 +91,17 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
       return _then(_value.copyWith(userState: value));
     });
   }
+
+  @override
+  $BottomNavStateCopyWith<$Res>? get bottomNavState {
+    if (_value.bottomNavState == null) {
+      return null;
+    }
+
+    return $BottomNavStateCopyWith<$Res>(_value.bottomNavState!, (value) {
+      return _then(_value.copyWith(bottomNavState: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -90,10 +109,12 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
   factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) then) =
       __$AppStateCopyWithImpl<$Res>;
   @override
-  $Res call({UserState? userState});
+  $Res call({UserState? userState, BottomNavState? bottomNavState});
 
   @override
   $UserStateCopyWith<$Res>? get userState;
+  @override
+  $BottomNavStateCopyWith<$Res>? get bottomNavState;
 }
 
 /// @nodoc
@@ -108,12 +129,17 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userState = freezed,
+    Object? bottomNavState = freezed,
   }) {
     return _then(_AppState(
       userState: userState == freezed
           ? _value.userState
           : userState // ignore: cast_nullable_to_non_nullable
               as UserState?,
+      bottomNavState: bottomNavState == freezed
+          ? _value.bottomNavState
+          : bottomNavState // ignore: cast_nullable_to_non_nullable
+              as BottomNavState?,
     ));
   }
 }
@@ -121,17 +147,19 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AppState implements _AppState {
-  _$_AppState({this.userState});
+  _$_AppState({this.userState, this.bottomNavState});
 
   factory _$_AppState.fromJson(Map<String, dynamic> json) =>
       _$_$_AppStateFromJson(json);
 
   @override
   final UserState? userState;
+  @override
+  final BottomNavState? bottomNavState;
 
   @override
   String toString() {
-    return 'AppState(userState: $userState)';
+    return 'AppState(userState: $userState, bottomNavState: $bottomNavState)';
   }
 
   @override
@@ -140,12 +168,17 @@ class _$_AppState implements _AppState {
         (other is _AppState &&
             (identical(other.userState, userState) ||
                 const DeepCollectionEquality()
-                    .equals(other.userState, userState)));
+                    .equals(other.userState, userState)) &&
+            (identical(other.bottomNavState, bottomNavState) ||
+                const DeepCollectionEquality()
+                    .equals(other.bottomNavState, bottomNavState)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(userState);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(userState) ^
+      const DeepCollectionEquality().hash(bottomNavState);
 
   @JsonKey(ignore: true)
   @override
@@ -159,12 +192,15 @@ class _$_AppState implements _AppState {
 }
 
 abstract class _AppState implements AppState {
-  factory _AppState({UserState? userState}) = _$_AppState;
+  factory _AppState({UserState? userState, BottomNavState? bottomNavState}) =
+      _$_AppState;
 
   factory _AppState.fromJson(Map<String, dynamic> json) = _$_AppState.fromJson;
 
   @override
   UserState? get userState => throw _privateConstructorUsedError;
+  @override
+  BottomNavState? get bottomNavState => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AppStateCopyWith<_AppState> get copyWith =>

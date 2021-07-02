@@ -17,6 +17,13 @@ class NavigationService {
     await navigatorKey.currentState!.pushReplacementNamed(route);
   }
 
+  void pushNamedAndRemoveUntil({required String route}) async {
+    await navigatorKey.currentState!.pushNamedAndRemoveUntil(
+      route,
+      (Route<dynamic> route) => false,
+    );
+  }
+
   void pop() async {
     navigatorKey.currentState!.pop();
   }

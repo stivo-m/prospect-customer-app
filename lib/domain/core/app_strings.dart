@@ -11,3 +11,11 @@ const String passwordText = 'Password';
 const String forgotPasswordText = 'Forgot Password';
 
 const BASE_URL = 'https://prospect-backend.herokuapp.com/api/';
+
+List<String> dashboardOrderCardTitles = <String>[
+  'Active Orders',
+  'Revision Orders',
+  'Completed Orders',
+  'Disputed Orders',
+  'Finished Orders',
+];

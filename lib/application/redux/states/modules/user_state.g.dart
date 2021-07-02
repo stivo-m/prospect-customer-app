@@ -6,6 +6,17 @@ part of 'user_state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+UserState _$UserStateFromJson(Map<String, dynamic> json) {
+  return UserState(
+    profile: json['profile'] == null
+        ? null
+        : UserProfile.fromJson(json['profile'] as Map<String, dynamic>),
+    userOnlineStatus:
+        _$enumDecode(_$UserOnlineStatusEnumMap, json['userOnlineStatus']),
+    token: json['token'] as String?,
+  );
+}
+
 Map<String, dynamic> _$UserStateToJson(UserState instance) => <String, dynamic>{
       'profile': instance.profile,
       'userOnlineStatus': _$UserOnlineStatusEnumMap[instance.userOnlineStatus],
