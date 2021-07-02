@@ -9,11 +9,13 @@ part 'user_profile_entity.g.dart';
 @freezed
 @JsonSerializable()
 class UserProfile with _$UserProfile {
-  const factory UserProfile(
-      {@JsonKey(name: 'name') required FullName fullName,
-      @JsonKey(name: 'email') required EmailAddress emailAddress,
-      @JsonKey(name: 'phone_number') required PhoneNumber phoneNumber,
-      @JsonKey(name: 'role') required String role}) = _UserProfile;
+  const factory UserProfile({
+    @JsonKey(name: 'name') required FullName fullName,
+    @JsonKey(name: 'email') required EmailAddress emailAddress,
+    @JsonKey(name: 'phone_number') required PhoneNumber phoneNumber,
+    @JsonKey(name: 'role') required String role,
+    // @JsonKey(name: 'status') required String status,
+  }) = _UserProfile;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
       _$UserProfileFromJson(json);

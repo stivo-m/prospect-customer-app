@@ -1,14 +1,11 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:prospect_app/domain/core/enums.dart';
 import 'package:prospect_app/infrastructure/facades/orders_facade.dart';
-import 'package:prospect_app/infrastructure/repository/cache_repository.dart';
 
 class OrderRepository extends IOrdersFacade {
   final ConnectivityResult connectivityResult;
-  final CacheRepository cacheRepository;
   OrderRepository({
     required this.connectivityResult,
-    required this.cacheRepository,
   }) : super(connectivityResult: connectivityResult);
 
   @override
