@@ -22,6 +22,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+
       - uses: actions/checkout@v2
 
       # Setup the flutter environment.
@@ -41,7 +46,7 @@ jobs:
 
       # Run widget tests for our flutter project. up
       - run: flutter test --coverage
-        
+
       # install lcov
       - run: sudo apt-get install lcov -y
 
@@ -52,5 +57,12 @@ jobs:
         with:
           name: coverage
           path: coverage/html/index.html
-          
-
+      # - name: Build Android App
+      #   run: flutter build apk --split-per-abi
+      # - name: Release Apps
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #     tag: ${{ env.APP_VERSION }}
+      #     name: ${{ env.APP_VERSION }}
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     artifacts: "build/app/outputs/apk/release/*.apk"
