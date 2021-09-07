@@ -2,10 +2,8 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:prospect_app/application/core/services/cache_service.dart';
-import 'package:prospect_app/application/core/services/navigation_service.dart';
 import 'package:prospect_app/domain/objects/email_value_object.dart';
 import 'package:prospect_app/infrastructure/facades/auth_facade.dart';
-import 'package:prospect_app/presentation/router/routes.dart';
 
 class AuthService {
   AuthService({
